@@ -1,6 +1,6 @@
 ﻿<template>
     <div class="card mb-3">
-        <img :src="article.image" class="card-img-top" :alt="article.title">
+        <img :src="article.image" class="card-img-top" :alt="article.title" v-if="article.image">
         <div class="card-body">
             <h5 class="card-title">{{ article.title }}</h5>
             <p class="card-text">{{ article.content }}</p>
@@ -10,7 +10,7 @@
 
 
 <script>
-import axios from 'axios';
+import api from '@/api';
 export default {
     data() {
         return {
@@ -20,7 +20,7 @@ export default {
     },
     methods: {
         async loadArticle() {
-            const result = await axios.get(`http://portal.be/api/articles/${this.articleId}`);
+            const result = await api.get(`/articles/${this.articleId}`);
             this.article = result.data
         }
     },
@@ -35,6 +35,8 @@ export default {
     }
 }
 </script>
+    
 
+<style scoped>
 
-<style scoped></style>
+</style>

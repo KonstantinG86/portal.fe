@@ -3,7 +3,7 @@
         <router-link 
         :to="{name: 'article', params: {id: article.id}}" 
         class="card text-decoration-none">
-            <img :src="article.image" class="card-img-top" alt="cities">
+            <img :src="articleImage" class="card-img-top" alt="cities">
             <div class="card-body">
                 <h5 class="card-title">{{ article.title }}</h5>
             </div>
@@ -16,6 +16,14 @@
     export default {
         props: {
             article: Object
+        },
+        computed: {
+            articleImage() {
+                if (!this.article.image) {
+                    return 'no_img.jpg';
+                }
+                return this.article.image;
+            }
         }
     }
 </script>
