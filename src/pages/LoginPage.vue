@@ -39,7 +39,8 @@
 
 
 <script>
-import api from '@/api';
+import {useAuthStore} from '@/stores/authstore';
+
 export default {
     data() {
         return {
@@ -52,11 +53,16 @@ export default {
         async onSubmit() {
             this.error = '';
             try {
-                const response = await api.post('/login', {
-                email: this.email,
-                password: this.password
+                await useAuthStore().login({
+                    email: this.email,
+                    password: this.password
                 });
-                console.log(response.data);
+
+                this.name = '';
+                this.email = '';
+                this.password = '';
+                this.$router.push('/');
+                
             }
             catch (e) {
                 if (e.status == '422') {

@@ -3,6 +3,7 @@ import MainPage from '@/pages/MainPage.vue'
 import ArticlePage from '@/pages/ArticlePage.vue'
 import LoginPage from '@/pages/LoginPage.vue'
 import RegisterPage from '@/pages/RegisterPage.vue'
+import {useAuthStore} from '@/stores/authstore';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,15 +21,37 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: LoginPage
+      component: LoginPage,
+      meta: {
+        guestOnly: true
+      }
     },
     {
       path: '/register',
       name: 'register',
-      component: RegisterPage
+      component: RegisterPage,
+      meta: {
+        guestOnly: true
+      }
     },
 
   ]
-})
+});
+
+router.beforeEach(function (to) {
+  const authStore = useAuthStore();
+  if (to.meta.guestOnly && authStore.isAuth) {
+    return {
+      name: 'main'
+    };
+  }
+
+  if (to.meta.authOnly && !authStore.isAuth) {
+    return {
+      name: 'main'
+    };
+  }
+});
+
 
 export default router
