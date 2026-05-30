@@ -14,7 +14,7 @@ import api from '@/api';
 export default {
     data() {
         return {
-            articleId: this.$route.params.id,
+            articleId: this.$route.params.id, 
             article: {}
         }
     },

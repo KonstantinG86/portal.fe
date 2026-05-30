@@ -18,6 +18,15 @@
       </div>
     </nav>
   <div class="container">
+    <div class="row" v-if="isAuth">
+      <ul class="nav">
+        <li class="nav-item">
+          <router-link class="nav-link" :to="{ name: 'admin_articles' }">
+            Статьи
+          </router-link>
+        </li>
+      </ul>
+    </div>
     <router-view />
   </div>
 </template>
